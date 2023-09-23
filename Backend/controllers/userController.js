@@ -7,14 +7,14 @@ const messagebird = initClient(process.env.MESSAGEBIRD_API_KEY);
 // send OTP to user 
 export const userLogin = async (req, res, next) => {
     const { phonenumber } = req.body
-    const newPhoneNumber = "+91" + phonenumber;
+    // const newPhoneNumber = "+91"+ phonenumber;
 
     var params = {
         template: "Your Login OTP is %token",
         timeout: 60
     };
 
-    messagebird.verify.create(newPhoneNumber, params,
+    messagebird.verify.create(phonenumber, params,
         (err, response) => {
             if (err) {
                 // Could not send OTP e.g Phone number Invalid
@@ -50,6 +50,7 @@ export const verifyOTP = async (req, res, next) => {
                     "message": "Invalid OTP"
                 })
             }
+            // Currect OTP 
             res.status(200).send({
                 "status": "success",
                 "message": "Login Success",
