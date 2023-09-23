@@ -1,0 +1,124 @@
+@import './variables.scss';
+
+.otp {
+    width: 375px;
+    background-color: $white;
+    height: 90%;
+    display: flex;
+    align-items: center;
+
+    .topsec {}
+
+    .midsec {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        height: 200px;
+
+        .midTop {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+
+            p {
+                font-size: 2rem;
+                color: $gray;
+                font-weight: 400;
+                line-height: 2.3rem;
+            }
+
+            div {
+                p {
+                    font-size: 1.6rem;
+
+                    span {
+                        color: $black;
+                    }
+                }
+
+                .link {
+                    color: $primaryColor;
+                    font-size: 1.2rem;
+                    border-bottom: 1px solid $primaryColor;
+                    transition: $smooth;
+
+                    &:hover {
+                        color: #f0980b;
+                    }
+                }
+
+            }
+        }
+
+        .midBottom {
+            margin-top: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            height: 150px;
+            gap: 1.5rem;
+
+            .otp-container {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .otp-container input {
+                flex: 1;
+                padding: 5px 0;
+                outline: none;
+                margin: 0;
+                border: 1px solid #E5E5E5;
+                font-size: 1.8rem;
+                color: $gray;
+                width: 3.8rem !important;
+                height: 3.8rem !important;
+
+            }
+
+            .special-label {
+                color: $lightGray;
+                font-size: 1.2rem;
+
+            }
+
+            p {
+                font-size: 1.2rem;
+                text-align: center;
+                color: $lightGray;
+                line-height: 1.4rem;
+                font-weight: 400;
+                padding: 10px;
+            }
+        }
+    }
+
+    .bottomsec {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        .resend {
+            display: flex;
+            gap: 1rem;
+            flex-direction: row;
+            font-size: 1.6rem;
+
+            p {
+                color: $lightGray;
+            }
+
+            .resendLink {
+                color: $primaryColor;
+                cursor: pointer;
+            }
+
+        }
+    }
+}
