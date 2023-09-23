@@ -2,13 +2,21 @@ import React, { useState } from 'react'
 import '../style/otp.scss';
 import Artboard from '../assets/otp_confirmed.png'
 import OTPInput, { ResendOTP } from "otp-input-react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa'
 
-const Otp = () => {
+const Otp = ({ setIsOTPVerify }) => {
 
     const [OTP, setOTP] = useState("");
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/")
+        // setIsOTPVerify(true)
+        window.close();
+    }
+
 
     return (
         <section className='otp'>
@@ -42,7 +50,7 @@ const Otp = () => {
                         <p>Didn’t receive the code?</p>
                         <Link to="" className='resendLink'>Resend</Link>
                     </div>
-                    <button className='btn'>
+                    <button className='btn' onClick={handleClick}>
                         {
                             loading && <FaSpinner className='icon' size={20} />
                         }

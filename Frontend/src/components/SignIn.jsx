@@ -11,12 +11,8 @@ const SignIn = () => {
 
     const [ph, setPh] = useState("");
 
-    useEffect(() => {
-        console.log(ph);
-    }, [ph])
-
-
     const getData = async () => {
+
         try {
             const response = await axios.post(`http://localhost:8000/api/user/login`, {
                 phonenumber: ph
@@ -25,21 +21,23 @@ const SignIn = () => {
             toast.success('OTP send Successfully')
         } catch (error) {
             console.log(error);
+            openWin('http://127.0.0.1:5173/verify')
         }
     };
 
     const handleClick = () => {
         console.log(ph);
         getData()
-
     }
 
-
+    const openWin = (url) => {
+        window.open(url, '_blank', "width=400px, height=900px");
+    }
 
     return (
-        <section className='sign_in'>
+        <div className='sign_in'>
+            {/* <Toaster toastOptions={{ duration: 4000 }} /> */}
             <div className="wrapper">
-
                 <div className="topsec">
                     <img src={Logo} alt="" className="logo" />
                 </div>
@@ -66,7 +64,7 @@ const SignIn = () => {
                     </button>
                 </div>
             </div>
-        </section>
+        </div>
     )
 }
 
