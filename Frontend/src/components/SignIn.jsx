@@ -2,13 +2,11 @@ import React, { useState } from 'react'
 import '../style/signIn.scss';
 import Logo from '../assets/AK_logo.png'
 import PhoneInput from "react-phone-input-2";
-
 import 'react-phone-input-2/lib/material.css'
 
 const SignIn = () => {
 
     const [ph, setPh] = useState("");
-    const [loading, setLoading] = useState(false)
 
     return (
         <section className='sign_in'>
@@ -26,7 +24,7 @@ const SignIn = () => {
                             country={"in"}
                             value={ph}
                             onChange={setPh}
-                            inputStyle={{ color: 'black', border: "1px solid #F7B348", outline: "none", height: "50px" }}
+                            inputStyle={{ color: 'black', border: "none", outline: "none", height: "45px" }}
                             specialLabel="Enter Contact Number"
                         />
                         <p>We will send you a one time SMS message.

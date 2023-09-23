@@ -3,10 +3,12 @@ import '../style/otp.scss';
 import Artboard from '../assets/otp_confirmed.png'
 import OTPInput, { ResendOTP } from "otp-input-react";
 import { Link } from 'react-router-dom';
+import { FaSpinner } from 'react-icons/fa'
 
 const Otp = () => {
 
     const [OTP, setOTP] = useState("");
+    const [loading, setLoading] = useState(false)
 
     return (
         <section className='otp'>
@@ -30,7 +32,6 @@ const Otp = () => {
                             OTPLength={4}
                             otpType="number"
                             disabled={false}
-                            // secure
                             className="otp-container"
                         />
                         {/* <ResendOTP onResendClick={() => console.log("Resend clicked")} /> */}
@@ -42,6 +43,9 @@ const Otp = () => {
                         <Link to="" className='resendLink'>Resend</Link>
                     </div>
                     <button className='btn'>
+                        {
+                            loading && <FaSpinner className='icon' size={20} />
+                        }
                         Verify
                     </button>
                 </div>
