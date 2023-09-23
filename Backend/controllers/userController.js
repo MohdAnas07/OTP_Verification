@@ -34,3 +34,28 @@ export const userLogin = async (req, res, next) => {
         });
 }
 
+
+// OTP VERIFICATION => opt Corret or not
+export const verifyOTP = async (req, res, next) => {
+
+    const { id, otpcode } = req.body;
+
+    messagebird.verify.verify(id, otpcode,
+        (err, response) => {
+            if (err) {
+                // Incorrect OTP
+                console.log("OTP Verification Error", err);
+                res.status(200).send({
+                    "status": "failed",
+                    "message": "Invalid OTP"
+                })
+            }
+            res.status(200).send({
+                "status": "success",
+                "message": "Login Success",
+            })
+        });
+
+
+}
+
