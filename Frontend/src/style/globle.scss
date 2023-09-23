@@ -43,15 +43,14 @@ html {
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: #ececec;
+    background-color: #e5e5e5;
 }
-
 
 .wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 75%;
+    height: 75%;
     width: 90%;
     align-items: center;
     margin: 0 auto;
