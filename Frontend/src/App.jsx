@@ -5,7 +5,7 @@ import SendOTP from './components/SendOTP';
 
 function App() {
 
-  const [isOTPVerify, setIsOTPVerify] = useState(false);
+  const [isOTPVerify, setIsOTPVerify] = useState(true);
   const navigate = useNavigate()
 
   useEffect(() => {
