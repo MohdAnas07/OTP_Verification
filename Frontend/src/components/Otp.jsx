@@ -6,12 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa'
 import axios from 'axios';
 
-const Otp = ({ setIsOTPVerify }) => {
+const Otp = ({ setIsOTPVerify, isOTPVerify }) => {
 
     const [OTP, setOTP] = useState("");
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate();
     const phonenumber = '917037796592'
+    const navigate = useNavigate();
 
     const getData = async () => {
         try {
@@ -21,7 +21,9 @@ const Otp = ({ setIsOTPVerify }) => {
             })
             console.log(response.data);
             setLoading(false)
-            window.close();
+            setIsOTPVerify(true)
+            console.log(isOTPVerify);
+            navigate("/")
         } catch (error) {
             console.log(error);
         }
@@ -29,7 +31,6 @@ const Otp = ({ setIsOTPVerify }) => {
 
     const handleClick = () => {
         setLoading(true)
-        // navigate("/")
         getData()
         console.log(OTP);
     }

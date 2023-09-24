@@ -1,20 +1,22 @@
-import { useState } from 'react'
-import SignIn from './components/SignIn'
+import { useEffect, useState } from 'react'
 import Otp from './components/Otp'
-import Success from './components/Success'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import SendOTP from './components/SendOTP';
 
 function App() {
 
-  const [showOTP, setShowOTP] = useState(false);
   const [isOTPVerify, setIsOTPVerify] = useState(false);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    console.log(isOTPVerify);
+  }, [isOTPVerify])
 
   return (
     <div className="app">
       <Routes>
-        <Route path="signin" element={<SignIn />} />
-        <Route path="verify" element={<Otp />} />
-        <Route path="/" element={<Success />} />
+        <Route path="/" element={<SendOTP isOTPVerify={isOTPVerify} />} />
+        <Route path="verify" element={<Otp setIsOTPVerify={setIsOTPVerify} isOTPVerify={isOTPVerify} />} />
       </Routes>
     </div>
   )
