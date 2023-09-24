@@ -4,17 +4,34 @@ import Artboard from '../assets/otp_confirmed.png'
 import OTPInput, { ResendOTP } from "otp-input-react";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa'
+import axios from 'axios';
 
 const Otp = ({ setIsOTPVerify }) => {
 
     const [OTP, setOTP] = useState("");
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
+    const phonenumber = '917037796592'
+
+    const getData = async () => {
+        try {
+            const response = await axios.post(`http://localhost:8000/api/user/verify`, {
+                "phonenumber": phonenumber,
+                "otp": OTP
+            })
+            console.log(response.data);
+            setLoading(false)
+            window.close();
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleClick = () => {
-        navigate("/")
-        // setIsOTPVerify(true)
-        window.close();
+        setLoading(true)
+        // navigate("/")
+        getData()
+        console.log(OTP);
     }
 
 
