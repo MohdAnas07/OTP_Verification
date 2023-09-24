@@ -1,62 +1,59 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 dotenv.config();
 
-import { initClient } from 'messagebird';
-const messagebird = initClient(process.env.MESSAGEBIRD_API_KEY);
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const serviceSID = process.env.TWILIO_SERVICE_SID;
 
+const client = require('twilio')(accountSid, authToken, {
+    lazyLoading: true
+});
+
+let OTP;
 // send OTP to user 
-export const userLogin = async (req, res, next) => {
+exports.userLogin = async (req, res, next) => {
+
     const { phonenumber } = req.body
-    // const newPhoneNumber = "+91"+ phonenumber;
+    const newPhoneNumber = "+" + phonenumber;
 
-    var params = {
-        template: "Your Login OTP is %token",
-        timeout: 60
-    };
-
-    messagebird.verify.create(phonenumber, params,
-        (err, response) => {
-            if (err) {
-                // Could not send OTP e.g Phone number Invalid
-                console.log("OTP Send Error:", err);
-                res.status(200).send({
-                    "status": "failed",
-                    "message": "Unable to Send OTP"
-                })
-            }
-            // OTP Send Successfully
-            console.log(response);
-            res.status(200).send({
-                "status": "success",
-                "message": "OTP Send Successfully",
-                "id": response?.id,
+    try {
+        const otpResponse = await client.verify
+            .services(serviceSID)
+            .verifications
+            .create({
+                to: newPhoneNumber,
+                channel: "sms",
             })
-        });
+        res.status(200).send({
+            status: "success",
+            message: JSON.stringify(otpResponse)
+        })
+    } catch (err) {
+        res.status(err?.status || 400).json({ status: "failed", Error: err.message })
+    }
 }
 
 
+
 // OTP VERIFICATION => opt Corret or not
-export const verifyOTP = async (req, res, next) => {
+exports.verifyOTP = async (req, res, next) => {
+    const { phonenumber, otp } = req.body;
+    console.log(req.body);
 
-    const { id, otpcode } = req.body;
-
-    messagebird.verify.verify(id, otpcode,
-        (err, response) => {
-            if (err) {
-                // Incorrect OTP
-                console.log("OTP Verification Error", err);
-                res.status(200).send({
-                    "status": "failed",
-                    "message": "Invalid OTP"
-                })
-            }
-            // Currect OTP 
-            res.status(200).send({
-                "status": "success",
-                "message": "Login Success",
+    try {
+        const verifiedResponse = await client.verify
+            .services(serviceSID)
+            .verificationChecks
+            .create({
+                to: "+" + phonenumber,
+                code: otp,
             })
-        });
-
-
+        res.status(200).json({
+            status: "success",
+            message: JSON.stringify(verifiedResponse)
+        })
+    } catch (err) {
+        res.status(err?.status || 400).json({ status: "failed", Error: err.message })
+    }
 }
 

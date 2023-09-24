@@ -1,8 +1,7 @@
-import express from 'express';
-import { userLogin, verifyOTP } from '../controllers/userController.js'
+const express = require('express');
+const { userLogin, verifyOTP } = require('../controllers/userController.js');
 
 const router = express.Router();
-
 
 // Public ROutes
 router
@@ -10,4 +9,4 @@ router
     .post("/verify", verifyOTP)
 
 
-export default router
+module.exports = router;

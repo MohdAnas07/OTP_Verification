@@ -19,9 +19,9 @@ const SignIn = () => {
             })
             console.log(response.data);
             toast.success('OTP send Successfully')
+            openWin('http://127.0.0.1:5173/verify')
         } catch (error) {
             console.log(error);
-            openWin('http://127.0.0.1:5173/verify')
         }
     };
 

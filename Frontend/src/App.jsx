@@ -13,7 +13,7 @@ function App() {
     <div className="app">
       <Routes>
         <Route path="signin" element={<SignIn />} />
-        <Route path="verify" element={<Otp setIsOTPVerify />} />
+        <Route path="verify" element={<Otp />} />
         <Route path="/" element={<Success />} />
       </Routes>
     </div>
