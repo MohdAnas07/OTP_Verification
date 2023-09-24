@@ -11,10 +11,10 @@ const Otp = ({ setIsOTPVerify, isOTPVerify }) => {
     const [OTP, setOTP] = useState("");
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
+    const phonenumber = localStorage.getItem("phonenumber");
 
     const getData = async () => {
         try {
-            const phonenumber = localStorage.getItem("phonenumber");
             const response = await axios.post(`http://localhost:8000/api/user/verify`, {
                 "phonenumber": phonenumber,
                 "otp": OTP
@@ -45,7 +45,7 @@ const Otp = ({ setIsOTPVerify, isOTPVerify }) => {
                     <div className="midTop">
                         <p>Please verify Mobile number</p>
                         <div>
-                            <p>An OTP is sent to <span>+917896781234</span></p>
+                            <p>An OTP is sent to <span>+{phonenumber}</span></p>
                             <Link to="/" className='link'>Change Phone Number</Link>
                         </div>
                     </div>

@@ -18,7 +18,7 @@ exports.userLogin = async (req, res, next) => {
 
     try {
         const otpResponse = await client.verify
-            .services(serviceSID)
+            .v2.services(serviceSID)
             .verifications
             .create({
                 to: newPhoneNumber,
@@ -42,7 +42,7 @@ exports.verifyOTP = async (req, res, next) => {
 
     try {
         const verifiedResponse = await client.verify
-            .services(serviceSID)
+            .v2.services(serviceSID)
             .verificationChecks
             .create({
                 to: "+" + phonenumber,

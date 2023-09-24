@@ -5,23 +5,39 @@ import Logo from '../assets/AK_logo.png'
 import PhoneInput from "react-phone-input-2";
 import 'react-phone-input-2/lib/material.css'
 import Img from '../assets/Artboard.png';
-
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FaSpinner } from 'react-icons/fa'
+
+
 
 const SendOTP = ({ isOTPVerify }) => {
 
     const [ph, setPh] = useState("");
+    const [loading, setLoading] = useState(false)
+
 
     const getData = async () => {
         try {
             const response = await axios.post(`http://localhost:8000/api/user/login`, {
                 phonenumber: ph
             })
-            console.log(response.data);
-            toast.success('OTP send Successfully')
+            toast.success('OTP Send Successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setLoading(false)
             localStorage.setItem("phonenumber", ph);
-            openWin('http://127.0.0.1:5173/verify')
+            setTimeout(() => {
+                openWin('http://127.0.0.1:5173/verify')
+            }, 1000);
 
         } catch (error) {
             console.log(error);
@@ -29,7 +45,7 @@ const SendOTP = ({ isOTPVerify }) => {
     };
 
     const handleClick = () => {
-        console.log(ph);
+        setLoading(true)
         getData()
     }
 
@@ -66,6 +82,7 @@ const SendOTP = ({ isOTPVerify }) => {
                     </div>
                     :
                     <div className='sign_in'>
+                        <ToastContainer />
                         < div className="wrapper" >
                             <div className="topsec">
                                 <img src={Logo} alt="" className="logo" />
@@ -89,6 +106,9 @@ const SendOTP = ({ isOTPVerify }) => {
                             </div>
                             <div className="bottomsec">
                                 <button className='btn' onClick={handleClick}>
+                                    {
+                                        loading && <FaSpinner className='icon' size={20} />
+                                    }
                                     sign in with OTP
                                 </button>
                             </div>
