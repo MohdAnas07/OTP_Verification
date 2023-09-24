@@ -20,7 +20,9 @@ const SendOTP = ({ isOTPVerify }) => {
             })
             console.log(response.data);
             toast.success('OTP send Successfully')
+            localStorage.setItem("phonenumber", ph);
             openWin('http://127.0.0.1:5173/verify')
+
         } catch (error) {
             console.log(error);
         }

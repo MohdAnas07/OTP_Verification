@@ -10,11 +10,11 @@ const Otp = ({ setIsOTPVerify, isOTPVerify }) => {
 
     const [OTP, setOTP] = useState("");
     const [loading, setLoading] = useState(false)
-    const phonenumber = '917037796592'
     const navigate = useNavigate();
 
     const getData = async () => {
         try {
+            const phonenumber = localStorage.getItem("phonenumber");
             const response = await axios.post(`http://localhost:8000/api/user/verify`, {
                 "phonenumber": phonenumber,
                 "otp": OTP
@@ -34,7 +34,6 @@ const Otp = ({ setIsOTPVerify, isOTPVerify }) => {
         getData()
         console.log(OTP);
     }
-
 
     return (
         <section className='otp'>
